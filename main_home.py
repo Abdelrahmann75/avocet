@@ -142,7 +142,7 @@ ORDER BY Datee'''
         st.markdown('### Co-ordinates map')    
         
         well_name = st.multiselect(
-            'Selec well name',options=df['Field'].unique(),
+            'Select well name',options=df['Field'].unique(),
             default=df['Field'].unique())
         df_selection = df[df['Field'].isin(well_name)].reset_index()
         if not df_selection.empty:
