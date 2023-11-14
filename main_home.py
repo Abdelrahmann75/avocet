@@ -61,7 +61,7 @@ def my_home():
         fig = make_subplots(rows=1, cols=1, specs=[[{'secondary_y': True}]])
 
         # Add Gross on the primary y-axis
-        fig.add_trace(go.Scatter(x=df['Datee'], y=df['Gross'], mode='lines', name='GrossTest', line=dict(color='black')))
+        fig.add_trace(go.Scatter(x=df['Datee'], y=df['Gross'], mode='lines', name='Gross', line=dict(color='black')))
 
         # Add NetOil on the secondary y-axis
         fig.add_trace(go.Scatter(x=df['Datee'], y=df['NetOil'], mode='lines', name='net_oil', line=dict(color='green')), secondary_y=False)
