@@ -68,6 +68,14 @@ def test():
     df_selection2 = df1[df1['WellName'].isin(well_name) & df1['Layer'].isin(df_layer['Layer'])]
 
     df_final2 = df_selection2.groupby('Datee')["PiP"].sum().reset_index()
+    
+    export_data = st.button("export data")
+    
+    if export_data:
+        with pd.ExcelWriter('Prod_pressure.xlsx') as writer:
+            # Write each DataFrame to a separate worksheet
+            df_final.to_excel(writer, sheet_name='test', index=False)
+            df_final2.to_excel(writer, sheet_name='pressure', index=False)
 
 
    
