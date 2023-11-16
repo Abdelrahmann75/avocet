@@ -71,13 +71,13 @@ def test():
     df_final2 = df_selection2.groupby('Datee')["PiP"].sum().reset_index()
     
     export_data = st.button("export data")
+    merged_df = pd.concat([df_final, df_final2], axis=1)
+
+   # Export the merged DataFrame to a CSV file
+
     
     if export_data:
-        with pd.ExcelWriter('Prod_pressure.xlsx') as writer:
-            # Write each DataFrame to a separate worksheet
-            df_final.to_excel(writer, sheet_name='test', index=False)
-            df_final2.to_excel(writer, sheet_name='pressure', index=False)
-
+        merged_df.to_csv('Prod_pressure.csv', index=False)
    
 
 # Define the two functions
