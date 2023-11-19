@@ -70,14 +70,16 @@ def test():
 
     df_final2 = df_selection2.groupby('Datee')["PiP"].sum().reset_index()
     
-    export_data = st.button("export data")
+  
     merged_df = pd.concat([df_final, df_final2], axis=1)
 
    # Export the merged DataFrame to a CSV file
 
     
-    if export_data:
-        merged_df.to_csv('Prod_pressure.csv', index=False)
+
+    csv_data=merged_df.to_csv( index=False)
+    st.download_button(label='export csv',data= csv_data,file_name='prod_test.csv',mime='text/csv')
+        
    
 
 # Define the two functions
