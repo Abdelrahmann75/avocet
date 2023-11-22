@@ -66,7 +66,7 @@ def test():
 
     df_final = df_selection.groupby('Datee').agg({'GrossTest':'sum','net_oil':'sum','WaterProduced':'sum'}).reset_index()
 
-    df_selection2 = df1[df1['WellName'].isin(well_name) & df1['Layer'].isin(df_layer['Layer'])]
+    df_selection2 = df1[df1['WellName'].isin(well_name) & df1['Layer'].isin(layer)]
 
     df_final2 = df_selection2.groupby('Datee')["PiP"].sum().reset_index()
     
