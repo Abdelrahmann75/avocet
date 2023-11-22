@@ -62,7 +62,7 @@ def test():
         'Selec layer',options=df['Layer'].unique(),
         default=df_layer['Layer'].unique())
 
-    df_selection = df[df['WellName'].isin(well_name) & df['Layer'].isin(df_layer['Layer'])]
+    df_selection = df[df['WellName'].isin(well_name) & df['Layer'].isin(layer)]
 
     df_final = df_selection.groupby('Datee').agg({'GrossTest':'sum','net_oil':'sum','WaterProduced':'sum'}).reset_index()
 
