@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from main_home import my_home
+from main_rta import rate_trans
 
 
 # Create a title for your form
@@ -44,10 +45,12 @@ def main():
         # Display the app content
         st.sidebar.markdown('<span style="font-size:20px; font-weight:bold;">Avocet-DashBoard</span>', unsafe_allow_html=True)
         # Set the default selection to "Prod_pressure"
-        choice = st.sidebar.radio("", ["Home", "Prod_pressure"])
+        choice = st.sidebar.radio("", ["Home", "Prod_pressure","RTA"])
 
         if choice == "Home":
             my_home()
+        elif choice =='RTA':
+            rate_trans
         else:
             test()
             
