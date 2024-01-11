@@ -218,6 +218,11 @@ ORDER By Date'''
 # Display the plot in Streamlit
                 st.plotly_chart(fig)
                 
+                with st.form("my_form"):
+                    st.write("OOIP is :",N, 'bbls')
+                    st.write("Productivity index is :",j)
+
+                
                
             
         with tab2:
