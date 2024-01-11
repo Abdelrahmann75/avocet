@@ -215,11 +215,10 @@ ORDER By Date'''
             
                 st.markdown(f"<h1 style='text-align: center; color: blue; font-size: 24px;'>OOIP is: {N} bbls</h1>", unsafe_allow_html=True)
                 st.markdown(f"<h2 style='text-align: center; color: green; font-size: 18px;'>Productivity is: {j}</h2>", unsafe_allow_html=True)
-                fig = px.box(processed_data, x='Category Label', y='norm_press', title='Boxplot of norm_press')
+                fig = px.box(processed_data['norm_press'], title='Boxplot of norm_press')
 
 # Display the plot in Streamlit
                 st.plotly_chart(fig)
-
                 
             
             
@@ -253,7 +252,7 @@ ORDER By Date'''
                
                 st.markdown(f"<h1 style='text-align: center; color: blue; font-size: 24px;'>OOIP is: {N} bbls</h1>", unsafe_allow_html=True)
                 st.markdown(f"<h2 style='text-align: center; color: green; font-size: 18px;'>Productivity is: {j}</h2>", unsafe_allow_html=True)
-                fig = px.box(processed_data, x='Category Label', y='norm_press', title='Boxplot of norm_press')
+                fig = px.box(processed_data['norm_press'], title='Boxplot of norm_press')
 
 # Display the plot in Streamlit
                 st.plotly_chart(fig)
