@@ -240,7 +240,8 @@ ORDER By Date'''
             col1,col2 = st.columns([1,1])
             
             with col1:
-                processed_data['pr_avg']= (processed_data['GrossTest']/(1/intercept_actual)) + processed_data['PiP']
+                b  = 1/intercept_treated
+                processed_data['pr_avg']= processed_data['GrossTest']/b + processed_data['PiP']
                 # Plot scatter with regression
                 plot_scatter_with_regression(processed_data, intercept_treated, slope_treated)     
                 scat = px.scatter(processed_data, x='Datee', y='pr_avg')
