@@ -196,7 +196,7 @@ ORDER By Date'''
             # Display sliders in the sidebar
             slope_actual = st.sidebar.number_input('slope_actual', value=m, step=0.001, format="%.3f", key="slopee")
             intercept_actual = st.sidebar.number_input('intercept_actual', value=b, step=0.01, key="interesd")
-            processed_data['pr_avg']= (processed_data['GrossTest']/(1/b)) + processed_data['PiP']
+            processed_data['pr_avg']= (processed_data['GrossTest']/(1/intercept_actual)) + processed_data['PiP']
             # Plot scatter with regression
             col1,col2 = st.columns([1,1])
             with col1:
@@ -240,7 +240,7 @@ ORDER By Date'''
             col1,col2 = st.columns([1,1])
             
             with col1:
-                processed_data['pr_avg']= (processed_data['GrossTest']/(1/b)) + processed_data['PiP']
+                processed_data['pr_avg']= (processed_data['GrossTest']/(1/intercept_actual)) + processed_data['PiP']
                 # Plot scatter with regression
                 plot_scatter_with_regression(processed_data, intercept_treated, slope_treated)     
                 scat = px.scatter(processed_data, x='Datee', y='pr_avg')
