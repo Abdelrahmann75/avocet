@@ -256,6 +256,9 @@ ORDER By Date'''
 # Display the plot in Streamlit
                 st.plotly_chart(fig)
                 
+                st.markdown("<div style='height: 50px;'></div>", unsafe_allow_html=True)
+
+# Your styled text at the bottom
                 st.markdown(f"<h1 style='text-align: center; color: blue; font-size: 24px;'>OOIP is: {N} bbls</h1>", unsafe_allow_html=True)
                 st.markdown(f"<h2 style='text-align: center; color: green; font-size: 18px;'>Productivity is: {j}</h2>", unsafe_allow_html=True)
 
