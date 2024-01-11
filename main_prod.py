@@ -9,6 +9,8 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from main_home import my_home
 from main_rta import rate_trans
+import statsmodels.api as sm
+
 
 
 # Create a title for your form
