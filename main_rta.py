@@ -218,9 +218,7 @@ ORDER By Date'''
 # Display the plot in Streamlit
                 st.plotly_chart(fig)
                 
-                st.markdown(f"<h1 style='text-align: center; color: blue; font-size: 24px;'>OOIP is: {N} bbls</h1>", unsafe_allow_html=True)
-                st.markdown(f"<h2 style='text-align: center; color: green; font-size: 18px;'>Productivity is: {j}</h2>", unsafe_allow_html=True)
-            
+               
             
         with tab2:
             processed_data = process_data(data)
@@ -256,7 +254,7 @@ ORDER By Date'''
 # Display the plot in Streamlit
                 st.plotly_chart(fig)
                 
-               with st.form("my_form"):
+                with st.form("my_form"):
                     st.write("OOIP is :",N, 'bbls')
                     st.write("Productivity index is :",j)
 
