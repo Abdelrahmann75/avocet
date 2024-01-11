@@ -17,7 +17,7 @@ import seaborn as sns
 
 def rate_trans():
     # Choose wide mode as the default setting
-    st.set_page_config(layout="wide")
+   
     conn = sqlite3.connect('MyData.db')
     
     sql_query = '''SELECT * FROM processedData'''
