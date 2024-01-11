@@ -212,8 +212,7 @@ ORDER By Date'''
                 j =round(j,2)
                 
             
-                st.write("OOIP is : ",N,"bbls")
-                st.write('Productivity is :',j)
+                
                 st.markdown(f"<h1 style='text-align: center; color: blue;'>OOIP is: {N} bbls</h1>", unsafe_allow_html=True)
                 st.markdown(f"<h2 style='text-align: center; color: green;'>Productivity is: {j}</h2>", unsafe_allow_html=True)
                 sns.boxplot(x=processed_data['norm_press'])
