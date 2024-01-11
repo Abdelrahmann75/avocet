@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 import streamlit as st
 import statsmodels.api as sm
+import seaborn as sns
 
 def rate_trans():
     # Choose wide mode as the default setting
@@ -215,7 +216,16 @@ ORDER By Date'''
                 st.write('Productivity is :',j)
                 st.markdown(f"<h1 style='text-align: center; color: blue;'>OOIP is: {N} bbls</h1>", unsafe_allow_html=True)
                 st.markdown(f"<h2 style='text-align: center; color: green;'>Productivity is: {j}</h2>", unsafe_allow_html=True)
-               
+                sns.boxplot(x=processed_data['norm_press'])
+ 
+                # Add labels and title
+                plt.xlabel('Category Label')
+                plt.ylabel('Values')
+                plt.title('Boxplot of ' + 'norm_press')
+                
+                # Display the plot in Streamlit
+                st.pyplot()
+
                 
             
             
@@ -248,7 +258,16 @@ ORDER By Date'''
                
                 st.markdown(f"<h1 style='text-align: center; color: blue; font-size: 24px;'>OOIP is: {N} bbls</h1>", unsafe_allow_html=True)
                 st.markdown(f"<h2 style='text-align: center; color: green; font-size: 18px;'>Productivity is: {j}</h2>", unsafe_allow_html=True)
+                sns.boxplot(x=processed_data['norm_press'])
+
+                # Add labels and title
+                plt.xlabel('Category Label')
+                plt.ylabel('Values')
+                plt.title('Boxplot of ' + 'norm_press')
                 
+                # Display the plot in Streamlit
+                st.pyplot()
+
        
         
         
