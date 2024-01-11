@@ -53,7 +53,7 @@ def main():
         if choice == "Home":
             my_home()
         elif choice =='RTA':
-            rate_trans
+            rate_trans()
         else:
             test()
             
