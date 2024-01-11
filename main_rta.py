@@ -197,7 +197,7 @@ ORDER By Date'''
             slope_actual = st.sidebar.number_input('slope_actual', value=m, step=0.001, format="%.3f", key="slopee")
             intercept_actual = st.sidebar.number_input('intercept_actual', value=b, step=0.01, key="interesd")
             b  = 1/intercept_actual
-            processed_data['pr_avg']= processed_data['GrossTest']/(1/b) + processed_data['PiP']
+            processed_data['pr_avg']= processed_data['GrossTest']/(b) + processed_data['PiP']
             # Plot scatter with regression
             col1,col2 = st.columns([1,1])
             with col1:
