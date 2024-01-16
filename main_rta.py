@@ -220,8 +220,8 @@ ORDER By Date'''
 # Display the plot in Streamlit
                 st.plotly_chart(fig)
                 
-                st.markdown(f"## OOIP is: {N} bbls", unsafe_allow_html=True)
-                st.markdown(f"## Productivity index is: {j}", unsafe_allow_html=True)
+                st.markdown(f"<h4>OOIP is: {N} bbls</h4>", unsafe_allow_html=True)
+                st.markdown(f"<h4>Productivity index is: {j}</h4>", unsafe_allow_html=True)
 
                 
                
@@ -259,8 +259,8 @@ ORDER By Date'''
 
 # Display the plot in Streamlit
                 st.plotly_chart(fig)
-                st.markdown(f"## OOIP is: {N} bbls", unsafe_allow_html=True)
-                st.markdown(f"## Productivity index is: {j}", unsafe_allow_html=True)
+                st.markdown(f"<h4>OOIP is: {N} bbls</h4>", unsafe_allow_html=True)
+                st.markdown(f"<h4>Productivity index is: {j}</h4>", unsafe_allow_html=True)
        
         
         
