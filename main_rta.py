@@ -54,6 +54,8 @@ ORDER By Date'''
         def get_filtered_data(well_name, layer):
       
              filtered_data = df[df['WellName'].isin(well_name) & df['Layer'].isin(layer)]
+             filtered_data.replace(-0, np.nan, inplace=True)
+
         
              return filtered_data
     
