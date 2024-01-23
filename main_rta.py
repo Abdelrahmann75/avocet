@@ -122,7 +122,7 @@ ORDER By Date'''
             
             # Plot the scatter plot
             scat = px.scatter(x=x, y=y, size=size, color_discrete_sequence=['red'], labels={'x': 'Normalized Rate', 'y': 'Normalized Pressure'},
-                              hover_data=[ date])
+                              hover_data=[ date,'NetTest'])
             
             # Add the linear regression line to the plot
             scat.update_layout(
