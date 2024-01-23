@@ -8,7 +8,7 @@ Created on Wed Jan 10 12:22:14 2024
 import pandas as pd
 import numpy as np
 import sqlite3
-import plotly.graph_objects as go
+
 import matplotlib.pyplot as plt
 import plotly.express as px
 import streamlit as st
@@ -146,21 +146,21 @@ ORDER By Date'''
                 
         
                     
-                def treat_outliers(data, column_to_plot):
-                    q1 = data[column_to_plot].quantile(0.25)
-                    q3 = data[column_to_plot].quantile(0.75)
-                    iqr = q3 - q1
-                    lower_bound = q1 - 1.5 * iqr
-                    upper_bound = q3 + 1.5 * iqr
+            def treat_outliers(data, column_to_plot):
+                q1 = data[column_to_plot].quantile(0.25)
+                q3 = data[column_to_plot].quantile(0.75)
+                iqr = q3 - q1
+                lower_bound = q1 - 1.5 * iqr
+                upper_bound = q3 + 1.5 * iqr
+            
+                # Identify and remove outliers
                 
-                    # Identify and remove outliers
-                    
-                    outliers = processed_data[(processed_data[column_to_plot] < lower_bound) | (processed_data[column_to_plot] > upper_bound)]
-                    processed_data_no_outliers = processed_data[(processed_data[column_to_plot] >= lower_bound) & (processed_data[column_to_plot] <= upper_bound)]
-                
-                    return  processed_data_no_outliers
-        
-        
+                outliers = processed_data[(processed_data[column_to_plot] < lower_bound) | (processed_data[column_to_plot] > upper_bound)]
+                processed_data_no_outliers = processed_data[(processed_data[column_to_plot] >= lower_bound) & (processed_data[column_to_plot] <= upper_bound)]
+            
+                return  processed_data_no_outliers
+    
+    
         
                 
             
