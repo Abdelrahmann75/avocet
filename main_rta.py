@@ -112,20 +112,14 @@ ORDER By Date'''
         
         
        
+        
         def plot_scatter_with_regression(data, intercept, slope):
             x = data['norm_rate']
             y = data['norm_press']
             size = data['Days']  # Add the 'Days' column for bubble size
             
             # Plot the scatter plot
-            scat = px.scatter(
-                x=x,
-                y=y,
-                size=size,
-                color_discrete_sequence=['red'],
-                labels={'x': 'Normalized Rate', 'y': 'Normalized Pressure'},
-                hover_data={'Datee': True , 'x': True, 'y': True}  # Include 'Datee' in hover information
-            )
+            scat = px.scatter(x=x, y=y, size=size, color_discrete_sequence=['red'],labels={'x': 'Normalized Rate', 'y': 'Normalized Pressure'})
             
             # Add the linear regression line to the plot
             scat.update_layout(
@@ -148,7 +142,7 @@ ORDER By Date'''
             
             # Display the Plotly figure using st.plotly_chart()
             st.plotly_chart(scat)
-                    
+            
         def treat_outliers(data, column_to_plot):
             q1 = data[column_to_plot].quantile(0.25)
             q3 = data[column_to_plot].quantile(0.75)
