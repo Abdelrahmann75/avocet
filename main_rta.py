@@ -123,8 +123,8 @@ ORDER By Date'''
                 y=y,
                 size=size,
                 color_discrete_sequence=['red'],
-                labels={'x': 'Normalized Rate', 'y': 'Normalized Pressure'}
-                  # Add 'Datee' to custom data
+                labels={'x': 'Normalized Rate', 'y': 'Normalized Pressure'},
+                hover_data={'Datee': True , 'x': True, 'y': True}  # Include 'Datee' in hover information
             )
             
             # Add the linear regression line to the plot
