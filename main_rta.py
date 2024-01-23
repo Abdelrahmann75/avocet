@@ -117,64 +117,48 @@ ORDER By Date'''
             x = data['norm_rate']
             y = data['norm_press']
             size = data['Days']  # Add the 'Days' column for bubble size
-            datee = data['Datee']  # Add the 'Datee' column
-        
-            # Scale factor for bubble size
-            scale_factor = 0.1  # Adjust this value as needed
-        
-            # Scale the size values
-            scaled_size = size * scale_factor
-        
-            # Create a scatter plot trace
-            scatter_trace = go.Scatter(
-                x=x,
-                y=y,
-                mode='markers',
-                marker=dict(size=scaled_size, color='red'),
-                text=['Datee: {}<br>Normalized Rate: {}<br>Normalized Pressure: {}<br>Days: {}'.format(datee_i, x_i, y_i, size_i) for datee_i, x_i, y_i, size_i in zip(datee, x, y, size)],
-                hoverinfo='text'
-            )
-        
-            # Create a linear regression line trace
-            regression_trace = go.Scatter(
-                x=[x.min(), x.max()],
-                y=[intercept + slope * x.min(), intercept + slope * x.max()],
-                mode='lines',
-                line=dict(color='red', width=2),
-                showlegend=False
-            )
-        
-            # Create the layout
-            layout = go.Layout(
+            
+            # Plot the scatter plot
+            scat = px.scatter(x=x, y=y, size=size, labels={'x': 'Normalized Rate', 'y': 'Normalized Pressure'})
+            
+            # Add the linear regression line to the plot
+            scat.update_layout(
+                shapes=[
+                    dict(
+                        type='line',
+                        x0=x.min(),
+                        x1=x.max(),
+                        y0=intercept + slope * x.min(),
+                        y1=intercept + slope * x.max(),
+                        line=dict(color='red', width=2),
+                    )
+                ],
                 title='Scatter Plot with Regression Line',
-                xaxis=dict(title='Normalized Rate'),
-                yaxis=dict(title='Normalized Pressure'),
+                xaxis_title='Normalized Rate',
+                yaxis_title='Normalized Pressure',
                 width=800,  # Adjust the width of the figure
                 height=500  # Adjust the height of the figure
             )
-        
-            # Create the figure
-            fig = go.Figure(data=[scatter_trace, regression_trace], layout=layout)
-        
+            
             # Display the Plotly figure using st.plotly_chart()
-            st.plotly_chart(fig)
-
+            st.plotly_chart(scat)
         
-
-            
-        def treat_outliers(data, column_to_plot):
-            q1 = data[column_to_plot].quantile(0.25)
-            q3 = data[column_to_plot].quantile(0.75)
-            iqr = q3 - q1
-            lower_bound = q1 - 1.5 * iqr
-            upper_bound = q3 + 1.5 * iqr
+                
         
-            # Identify and remove outliers
-            
-            outliers = processed_data[(processed_data[column_to_plot] < lower_bound) | (processed_data[column_to_plot] > upper_bound)]
-            processed_data_no_outliers = processed_data[(processed_data[column_to_plot] >= lower_bound) & (processed_data[column_to_plot] <= upper_bound)]
-        
-            return  processed_data_no_outliers
+                    
+                def treat_outliers(data, column_to_plot):
+                    q1 = data[column_to_plot].quantile(0.25)
+                    q3 = data[column_to_plot].quantile(0.75)
+                    iqr = q3 - q1
+                    lower_bound = q1 - 1.5 * iqr
+                    upper_bound = q3 + 1.5 * iqr
+                
+                    # Identify and remove outliers
+                    
+                    outliers = processed_data[(processed_data[column_to_plot] < lower_bound) | (processed_data[column_to_plot] > upper_bound)]
+                    processed_data_no_outliers = processed_data[(processed_data[column_to_plot] >= lower_bound) & (processed_data[column_to_plot] <= upper_bound)]
+                
+                    return  processed_data_no_outliers
         
         
         
