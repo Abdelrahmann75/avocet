@@ -118,11 +118,13 @@ ORDER By Date'''
             y = data['norm_press']
             size = data['Days']  # Add the 'Days' column for bubble size
             date = data['Datee'].astype(str)
+            arr = np.array(processed_data['NetTest'])
+            arr = arr.astype(int)
             
             
             # Plot the scatter plot
             scat = px.scatter(x=x, y=y, size=size, color_discrete_sequence=['red'], labels={'x': 'Normalized Rate', 'y': 'Normalized Pressure'},
-                              hover_data=[ date,'NetTest'])
+                              hover_data=[ date,arr])
             
             # Add the linear regression line to the plot
             scat.update_layout(
