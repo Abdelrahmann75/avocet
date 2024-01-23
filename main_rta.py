@@ -119,7 +119,13 @@ ORDER By Date'''
             size = data['Days']  # Add the 'Days' column for bubble size
             
             # Plot the scatter plot
-            scat = px.scatter(x=x, y=y, size=size, labels={'x': 'Normalized Rate', 'y': 'Normalized Pressure'})
+            scat = px.scatter(
+                x=x,
+                y=y,
+                size=size,
+                labels={'x': 'Normalized Rate', 'y': 'Normalized Pressure'},
+                hover_data={'Datee': True}  # Add the 'Datee' column for hover annotations
+            )
             
             # Add the linear regression line to the plot
             scat.update_layout(
