@@ -119,12 +119,15 @@ ORDER By Date'''
             size = data['Days']  # Add the 'Days' column for bubble size
             datee = data['Datee']  # Add the 'Datee' column
         
+            # Scale factor for bubble size
+            sizeref = 0.02  # Adjust this value as needed
+        
             # Create a scatter plot trace
             scatter_trace = go.Scatter(
                 x=x,
                 y=y,
                 mode='markers',
-                marker=dict(size=size, color='red'),
+                marker=dict(size=size, sizemode='diameter', sizeref=sizeref, color='red'),
                 text=['Datee: {}<br>Normalized Rate: {}<br>Normalized Pressure: {}<br>Days: {}'.format(datee_i, x_i, y_i, size_i) for datee_i, x_i, y_i, size_i in zip(datee, x, y, size)],
                 hoverinfo='text'
             )
