@@ -116,11 +116,13 @@ ORDER By Date'''
         def plot_scatter_with_regression(data, intercept, slope):
             x = data['norm_rate']
             y = data['norm_press']
-            size = data['Days']  # Add the 'Days' column for bubble size
-            
+            size = data['Days']
+            datee = data['Datee'] 
+            # Add the 'Days' column for bubble size
+            hover_info = [f'Datee: {datee_i}<br>Normalized Rate: {x_i}<br>Normalized Pressure: {y_i}<br>Days: {size_i}' for datee_i, x_i, y_i, size_i in zip(datee, x, y, size)]
             # Plot the scatter plot
             scat = px.scatter(x=x, y=y, size=size, color_discrete_sequence=['red'], labels={'x': 'Normalized Rate', 'y': 'Normalized Pressure'},
-                              hover_data={'Datee': True,  'x': True, 'y': True})
+                              hover_data={'x': x, 'y': y, 'size': size, 'Datee': datee})
             
             # Add the linear regression line to the plot
             scat.update_layout(
