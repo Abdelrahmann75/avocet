@@ -117,7 +117,7 @@ ORDER By Date'''
             x = data['norm_rate']
             y = data['norm_press']
             size = data['Days']  # Add the 'Days' column for bubble size
-            date= data['Datee']
+            
             
             # Plot the scatter plot
             scat = px.scatter(x=x, y=y, size=size, color_discrete_sequence=['red'], labels={'x': 'Normalized Rate', 'y': 'Normalized Pressure'})
