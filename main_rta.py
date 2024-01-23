@@ -124,7 +124,7 @@ ORDER By Date'''
                 y=y,
                 size=size,
                 labels={'x': 'Normalized Rate', 'y': 'Normalized Pressure'},
-                hover_data={'Datee': True}  # Add the 'Datee' column for hover annotations
+                custom_data=[data['Datee']]  # Add the 'Datee' column for custom data
             )
             
             # Add the linear regression line to the plot
