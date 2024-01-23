@@ -137,7 +137,7 @@ ORDER By Date'''
                         x1=x.max(),
                         y0=intercept + slope * x.min(),
                         y1=intercept + slope * x.max(),
-                        line=dict(color='red', width=2),
+                        line=dict(color='black', width=2),
                     )
                 ],
                 title='Scatter Plot with Regression Line',
