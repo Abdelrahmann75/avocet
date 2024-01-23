@@ -117,10 +117,11 @@ ORDER By Date'''
             x = data['norm_rate']
             y = data['norm_press']
             size = data['Days']  # Add the 'Days' column for bubble size
-            
+            hover_text = data['Datee'].astype(str)
             
             # Plot the scatter plot
-            scat = px.scatter(x=x, y=y, size=size, color_discrete_sequence=['red'], labels={'x': 'Normalized Rate', 'y': 'Normalized Pressure'})
+            scat = px.scatter(x=x, y=y, size=size, color_discrete_sequence=['red'], labels={'x': 'Normalized Rate', 'y': 'Normalized Pressure'},
+                              text=hover_text)
             
             # Add the linear regression line to the plot
             scat.update_layout(
@@ -245,7 +246,7 @@ ORDER By Date'''
                 b  = 1/intercept_treated
                 processed_data['pr_avg']= processed_data['GrossTest']/b + processed_data['PiP']
                 # Plot scatter with regression
-                plot_scatter_with_regression(processed_data, intercept_treated, slope_treated)     
+                plot_scatter_with_regressions(processed_data, intercept_treated, slope_treated)     
                 scat = px.scatter(processed_data, x='Datee', y='pr_avg')
                 st.plotly_chart(scat)
                 
