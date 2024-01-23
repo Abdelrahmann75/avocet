@@ -121,7 +121,7 @@ ORDER By Date'''
             arr = np.array(processed_data['NetTest'])
             arr = arr.astype(int)
             arr2 = np.array(processed_data['PiP'])
-            arr2 = arr.astype(int)
+            arr2 = arr2.astype(int)
             
             
             # Plot the scatter plot
