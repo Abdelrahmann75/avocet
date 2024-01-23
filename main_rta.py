@@ -8,7 +8,7 @@ Created on Wed Jan 10 12:22:14 2024
 import pandas as pd
 import numpy as np
 import sqlite3
-
+import plotly.graph_objects as go
 import matplotlib.pyplot as plt
 import plotly.express as px
 import streamlit as st
@@ -118,41 +118,41 @@ ORDER By Date'''
             y = data['norm_press']
             size = data['Days']  # Add the 'Days' column for bubble size
             datee = data['Datee']  # Add the 'Datee' column
-            
-            # Create a scatter plot
-            scat = px.scatter(
+        
+            # Create a scatter plot trace
+            scatter_trace = go.Scatter(
                 x=x,
                 y=y,
-                size=size,
-                color_discrete_sequence=['red'],
-                labels={'x': 'Normalized Rate', 'y': 'Normalized Pressure'},
-                custom_data=[datee, size],  # Add 'Datee' and 'size' to custom data
-                 # Use 'Datee' as hover_name
-                hover_data={'Datee': True,'x': True, 'y': True},  # Include 'Datee' in hover information
+                mode='markers',
+                marker=dict(size=size, color='red'),
+                text=['Datee: {}<br>Normalized Rate: {}<br>Normalized Pressure: {}<br>Days: {}'.format(datee_i, x_i, y_i, size_i) for datee_i, x_i, y_i, size_i in zip(datee, x, y, size)],
+                hoverinfo='text'
             )
         
-            # Add the linear regression line to the plot
-            scat.update_layout(
-                shapes=[
-                    dict(
-                        type='line',
-                        x0=x.min(),
-                        x1=x.max(),
-                        y0=intercept + slope * x.min(),
-                        y1=intercept + slope * x.max(),
-                        line=dict(color='red', width=2),
-                    )
-                ],
+            # Create a linear regression line trace
+            regression_trace = go.Scatter(
+                x=[x.min(), x.max()],
+                y=[intercept + slope * x.min(), intercept + slope * x.max()],
+                mode='lines',
+                line=dict(color='red', width=2),
+                showlegend=False
+            )
+        
+            # Create the layout
+            layout = go.Layout(
                 title='Scatter Plot with Regression Line',
-                xaxis_title='Normalized Rate',
-                yaxis_title='Normalized Pressure',
+                xaxis=dict(title='Normalized Rate'),
+                yaxis=dict(title='Normalized Pressure'),
                 width=800,  # Adjust the width of the figure
                 height=500  # Adjust the height of the figure
             )
         
+            # Create the figure
+            fig = go.Figure(data=[scatter_trace, regression_trace], layout=layout)
+        
             # Display the Plotly figure using st.plotly_chart()
-            st.plotly_chart(scat)
-
+            st.plotly_chart(fig)
+    
 
             
         def treat_outliers(data, column_to_plot):
