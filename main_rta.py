@@ -113,7 +113,7 @@ ORDER By Date'''
         
        
          
-        def plot_scatter_with_regression(data, intercept, slope):
+        def plot_scatter_with_regressions(data, intercept, slope):
             x = data['norm_rate']
             y = data['norm_press']
             size = data['Days']  # Add the 'Days' column for bubble size
@@ -208,7 +208,7 @@ ORDER By Date'''
             # Plot scatter with regression
             col1,col2 = st.columns([1,1])
             with col1:
-                plot_scatter_with_regression(processed_data, intercept_actual, slope_actual)
+                plot_scatter_with_regressions(processed_data, intercept_actual, slope_actual)
                 scat = px.scatter(processed_data, x='Datee', y='pr_avg')
                 st.plotly_chart(scat)
                 
