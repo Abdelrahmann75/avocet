@@ -118,10 +118,11 @@ ORDER By Date'''
             y = data['norm_press']
             size = data['Days']  # Add the 'Days' column for bubble size
             date= data['Datee'].astype(str)
+            hover_data_df = pd.DataFrame({'Datee': date})
             
             # Plot the scatter plot
             scat = px.scatter(x=x, y=y, size=size, color_discrete_sequence=['red'], labels={'x': 'Normalized Rate', 'y': 'Normalized Pressure'},
-                              hover_data={'Datee': date})
+                              hover_data=hover_data_df)
             
             # Add the linear regression line to the plot
             scat.update_layout(
