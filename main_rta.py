@@ -120,11 +120,13 @@ ORDER By Date'''
             date = data['Datee'].astype(str)
             arr = np.array(processed_data['NetTest'])
             arr = arr.astype(int)
+            arr1 = np.array(processed_data['PiP'])
+            arr1 = arr.astype(int)
             
             
             # Plot the scatter plot
             scat = px.scatter(x=x, y=y, size=size, color_discrete_sequence=['red'], labels={'x': 'Normalized Rate', 'y': 'Normalized Pressure'},
-                              hover_data=[ date,arr])
+                              hover_data=[ date,arr,arr1])
             
             # Add the linear regression line to the plot
             scat.update_layout(
