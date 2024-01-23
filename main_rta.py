@@ -116,10 +116,11 @@ ORDER By Date'''
         def plot_scatter_with_regression(data, intercept, slope):
             x = data['norm_rate']
             y = data['norm_press']
-        
+            size = data['Days']  # Add the 'Days' column for bubble size
+            
             # Plot the scatter plot
-            scat = px.scatter(x=x, y=y, labels={'x': 'Normalized Rate', 'y': 'Normalized Pressure'})
-        
+            scat = px.scatter(x=x, y=y, size=size, labels={'x': 'Normalized Rate', 'y': 'Normalized Pressure'})
+            
             # Add the linear regression line to the plot
             scat.update_layout(
                 shapes=[
@@ -138,7 +139,7 @@ ORDER By Date'''
                 width=800,  # Adjust the width of the figure
                 height=500  # Adjust the height of the figure
             )
-        
+            
             # Display the Plotly figure using st.plotly_chart()
             st.plotly_chart(scat)
             
