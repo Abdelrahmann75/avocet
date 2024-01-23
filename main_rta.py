@@ -119,13 +119,7 @@ ORDER By Date'''
             size = data['Days']  # Add the 'Days' column for bubble size
             
             # Plot the scatter plot
-            scat = px.scatter(
-                x=x,
-                y=y,
-                size=size,
-                labels={'x': 'Normalized Rate', 'y': 'Normalized Pressure'},
-                custom_data=[data['Datee']]  # Add the 'Datee' column for custom data
-            )
+            scat = px.scatter(x=x, y=y, size=size, labels={'x': 'Normalized Rate', 'y': 'Normalized Pressure'})
             
             # Add the linear regression line to the plot
             scat.update_layout(
