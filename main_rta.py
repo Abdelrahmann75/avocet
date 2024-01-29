@@ -227,6 +227,11 @@ ORDER By Date'''
                 
             
                 fig = px.box(processed_data['norm_press'], title='Boxplot of norm_press')
+                fig.update_layout(
+                width=500,  # Adjust width as desired
+                height=400  # Adjust height as desired
+            )
+
 
 # Display the plot in Streamlit
                 st.plotly_chart(fig)
@@ -268,7 +273,7 @@ ORDER By Date'''
                
                 fig = px.box(processed_data['norm_press'], title='Boxplot of norm_press')
                 fig.update_layout(
-                width=600,  # Adjust width as desired
+                width=500,  # Adjust width as desired
                 height=400  # Adjust height as desired
             )
 
