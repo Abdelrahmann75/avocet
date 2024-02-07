@@ -152,13 +152,9 @@ ORDER BY
         # Create the figure for the second plot
         fig2 = go.Figure(data=data2, layout=layout2)
     
-    return fig1, fig2
-    
-        # Create the figure for the second plot
-        fig2 = go.Figure(data=data2, layout=layout2)
-    
         return fig1, fig2
-
+    
+        
 # Define the two functions
     fig1, fig2 = update_running_graph(df_final, df_final2)
 # Conditional updates for the second subplot based on data availability
