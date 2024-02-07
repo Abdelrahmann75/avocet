@@ -108,8 +108,8 @@ ORDER BY
                             line=dict(color='black'))  # GrossTest with black color
     
         trace2 = go.Scatter(x=df1['Datee'],
-                            y=df1['WC'],
-                            name='Model',
+                            y=df1['WcTest'],
+                            name='WC',
                             mode='lines+markers',
                             yaxis='y2',
                             line=dict(color='blue', dash='dot'))  # WcTest with blue color and dotted line style
