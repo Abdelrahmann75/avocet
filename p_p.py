@@ -112,11 +112,14 @@ ORDER BY
             xaxis=dict(title='Datee', showgrid=False),
             legend=dict(x=0, y=1.1, orientation="h"),
             width=1000,  # Adjust width as needed
-            height=600,   # Adjust height as needed
-            yaxis2=dict(title='WC', overlaying='y', side='right', row=1, col=1)  # Specify row and col for yaxis2
+            height=600   # Adjust height as needed
         )
         
+        # Update secondary y-axis for WcTest in the first subplot
+        fig.update_yaxes(title_text='WC', overlaying='y', side='right', row=1, col=1)
+        
         return fig
+
 
 
 
