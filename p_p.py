@@ -128,13 +128,17 @@ ORDER BY
             yaxis2=dict(title='Model Difference', overlaying='y', side='right', range=[0, 100]),  # Secondary axis for WcTest from 0 to 100
             xaxis=dict(title='Datee', showgrid=False),
             legend=dict(x=0, y=1.1, orientation="h"),
-            width=1200,  # Adjust width as needed
+            width=1000,  # Adjust width as needed
             height=600   # Adjust height as needed
         )
         
-        # Create the figure for the first plot
-        fig1 = go.Figure(data=data1, layout=layout1)
+        # Create the subplot
+        fig = make_subplots(rows=2, cols=1, shared_xaxes=True, vertical_spacing=0.1)
         
+        # Add traces to the subplot
+        for trace in data1:
+            fig.add_trace(trace, row=1, col=1)
+            
         # Trace for the second dataframe (df2)
         trace4 = go.Scatter(x=df2['Datee'],
                             y=df2['PiP'],
@@ -143,33 +147,23 @@ ORDER BY
                             yaxis='y1',
                             line=dict(color='red'))  # PiP with red color
         
-        # Define the data list with the trace for the second plot
-        data2 = [trace4]
+        # Add trace for the second plot
+        fig.add_trace(trace4, row=2, col=1)
         
-        # Layout for the second plot
-        layout2 = go.Layout(
-            title='asdf',  # Title for the plot
-            yaxis=dict(title='PiP', side='left', showgrid=False),
-            xaxis=dict(title='Datee', showgrid=False),
-            width=1000,  # Adjust width as needed
-            height=600   # Adjust height as needed
-        )
+        # Update layout for the subplot
+        fig.update_layout(layout1)
         
-        # Create the figure for the second plot
-        fig2 = go.Figure(data=data2, layout=layout2)
-        
-        return fig1, fig2
-        
+        return fig
             
 # Define the two functions
-    fig1, fig2 = update_running_graph(df_final, df_final2)
+    fig = update_running_graph(df_final, df_final2)
 # Conditional updates for the second subplot based on data availability
     if not df_selection.empty:
         
 
 # Display the figures in Streamlit
-        st.plotly_chart(fig1)
-        st.plotly_chart(fig2)
+        st.plotly_chart(fig)
+        
         # Update x-axis grid for the second subplot
        
     else:
