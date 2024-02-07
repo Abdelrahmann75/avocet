@@ -18,7 +18,7 @@ def test():
 LEFT JOIN WellTest ON DailyProduction.ID = WellTest.DailyProdID
 LEFT JOIN Layers on DailyProduction.Datee =Layers.Date AND DailyProduction.WellName = Layers.WellName
 
-ORDER BY DailyProduction.Datee'''
+ORDER BY DailyProduction.WellName, DailyProduction.Datee'''
     sql_query2 = '''SELECT * FROM pressure'''
 
     # first dataframe test
