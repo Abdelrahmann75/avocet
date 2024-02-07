@@ -4,6 +4,7 @@ import numpy as np
 import streamlit as st
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+import seaborn as sns
 
 
 
@@ -13,22 +14,22 @@ def test():
 
     conn2 = sqlite3.connect('MyData.db')
 
-    sql_query1 = '''SELECT * FROM test'''
+    sql_query1 = '''SELECT DailyProduction.Datee,DailyProduction.WellName,WellTest.GrossTest,WellTest.NetTest AS net_oil,WellTest.WcTest,Layers.Layer FROM DailyProduction
+LEFT JOIN WellTest ON DailyProduction.ID = WellTest.DailyProdID
+LEFT JOIN Layers on DailyProduction.Datee =Layers.Date AND DailyProduction.WellName = Layers.WellName
+
+ORDER BY DailyProduction.Datee'''
     sql_query2 = '''SELECT * FROM pressure'''
 
     # first dataframe test
     df = pd.read_sql_query(sql_query1,conn2)
     df['Datee']=pd.to_datetime(df['Datee'])
-    df['WaterProduced'] = pd.to_numeric(df['WaterProduced'], errors='coerce')
     df['Layer'].fillna(method='ffill',inplace=True)
     df = df[pd.to_numeric(df['GrossTest'], errors='coerce').notna()]
     df['GrossTest']=df['GrossTest'].astype(float)
-    df['WaterProduced']=df['WaterProduced'].astype(float)
-    df['net_oil']=df['GrossTest']-df['WaterProduced']
     df = df.reset_index(drop=True)
     df.sort_values('Datee')
     df['Datee'] = df['Datee'].dt.strftime('%Y-%m-%d')
-
 
     #second dataframe pressure
     df1 = pd.read_sql_query(sql_query2,conn2)
@@ -64,7 +65,7 @@ def test():
 
     df_selection = df[df['WellName'].isin(well_name) & df['Layer'].isin(layer)]
 
-    df_final = df_selection.groupby('Datee').agg({'GrossTest':'sum','net_oil':'sum','WaterProduced':'sum'}).reset_index()
+    df_final = df_selection.groupby('Datee').agg({'GrossTest':'sum','net_oil':'sum','WcTest':'sum'}).reset_index()
 
     df_selection2 = df1[df1['WellName'].isin(well_name) & df1['Layer'].isin(layer)]
 
@@ -103,23 +104,27 @@ def test():
             line=dict(color='green')
         )
         water_produced_trace = go.Scatter(
-            x=df['Datee'],
-            y=df['WaterProduced'],
-            mode='lines+markers',
-            name='WaterProduced',
-            line=dict(color='blue')
-        )
+        x=df['Datee'],
+        y=df['WcTest'],
+        mode='lines+markers',
+        name='WC',
+        line=dict(color='blue'),
+        yaxis='y2'  # Assigning WaterProduced trace to the secondary y-axis
+    )
 
         # Add the traces to the figure
         fig.add_traces([gross_test_trace, net_oil_trace, water_produced_trace])
 
         # Update the layout
         fig.update_layout(
-            title={'text': title, 'x': 0.4},
-            width=1100,
-            xaxis={'gridcolor': 'black', 'gridwidth': 1, 'showgrid': True, 'title': {'text': 'Datee'}},
-            yaxis={'gridcolor': 'black', 'gridwidth': 1, 'showgrid': True, 'title': {'text': 'Values'}}
-        )
+        title={'text': title, 'x': 0.4},
+        width=1100,
+        xaxis={'gridcolor': 'black', 'gridwidth': 1, 'showgrid': True, 'title': {'text': 'Datee'}},
+        yaxis={'gridcolor': 'black', 'gridwidth': 1, 'showgrid': True, 'title': {'text': 'GrossTest & net_oil'}},
+        yaxis2={'gridcolor': 'black', 'gridwidth': 1, 'showgrid': True, 'title': {'text': 'WaterProduced'},
+                'overlaying': 'y', 'side': 'right', 'range': [0, 100]}  # Secondary y-axis configuration
+    )
+
 
         return fig
 
