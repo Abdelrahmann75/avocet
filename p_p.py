@@ -98,7 +98,7 @@ ORDER BY
     def update_running_graph(df1, df2):
     # Create the first subplot with shared x-axis
         fig = make_subplots(rows=2, cols=1, shared_xaxes=True)
-    
+        
         # Trace for the first dataframe (df1)
         trace1 = go.Scatter(x=df1['Datee'],
                             y=df1['GrossTest'],
@@ -137,6 +137,9 @@ ORDER BY
         # Add trace to the second subplot
         fig.add_trace(trace4, row=2, col=1)
         
+        # Add secondary y-axis to the entire plot
+        fig.update_layout(yaxis2=dict(title='WC', overlaying='y', side='right', row=1, col=1))
+        
         # Update layout for the subplot
         fig.update_layout(
             title='Dual Axis Plot with Shared X-Axis',
@@ -147,7 +150,7 @@ ORDER BY
         )
         
         return fig
-    
+        
     
       
 # Define the two functions
