@@ -27,11 +27,11 @@ LEFT JOIN
     WellTest ON DailyProduction.ID = WellTest.DailyProdID
 LEFT JOIN 
     Layers ON DailyProduction.Datee = Layers.Date AND DailyProduction.WellName = Layers.WellName
-WHERE 
-    WellTest.GrossTest IS NOT NULL
+
 ORDER BY 
     DailyProduction.WellName, 
     DailyProduction.Datee;
+
 '''
     sql_query2 = '''SELECT * FROM pressure'''
 
