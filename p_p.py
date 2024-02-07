@@ -193,6 +193,102 @@ ORDER BY
         title_text=df_selection.iloc[0,1])
         st.plotly_chart(fig)
      
+    def create_dual_axis_scatter_plot(df, title):
+        fig = go.Figure()
+        df['Datee'] = pd.to_datetime(df['Datee'])
+    
+        # Create traces for gross test, net oil, and water produced
+        gross_test_trace = go.Scatter(
+            x=df['Datee'],
+            y=df['GrossTest'],
+            mode='lines+markers',
+            name='GrossTest',
+            line=dict(color='black')
+        )
+        net_oil_trace = go.Scatter(
+            x=df['Datee'],
+            y=df['net_oil'],
+            mode='lines+markers',
+            name='net_oil',
+            line=dict(color='green')
+        )
+        water_produced_trace = go.Scatter(
+            x=df['Datee'],
+            y=df['WcTest'],
+            mode='lines+markers',
+            name='WC',
+            line=dict(color='blue'),
+            yaxis='y2'  # Assigning WaterProduced trace to the secondary y-axis
+        )
+    
+        # Add the traces to the figure
+        fig.add_traces([gross_test_trace, net_oil_trace, water_produced_trace])
+    
+        # Update the layout
+        fig.update_layout(
+            title={'text': title, 'x': 0.4},
+            width=1100,
+            xaxis={'gridcolor': 'black', 'gridwidth': 1, 'showgrid': True, 'title': {'text': 'Datee'}},
+            yaxis={'gridcolor': 'black', 'gridwidth': 1, 'showgrid': True, 'title': {'text': 'GrossTest & net_oil'}},
+            yaxis2={'gridcolor': 'black', 'gridwidth': 1, 'showgrid': True, 'title': {'text': 'WaterProduced'},
+                    'overlaying': 'y', 'side': 'right', 'range': [0, 100]}  # Secondary y-axis configuration
+        )
+    
+        return fig
+
+    def pressure_chart(df):
+        fig = go.Figure()
+        df['Datee'] = pd.to_datetime(df['Datee'])
+    
+        # Create a trace for pump intake pressure
+        pip_trace = go.Scatter(
+            x=df['Datee'],
+            y=df['PiP'],
+            mode='lines+markers',
+            name='Pump_intake',
+            line=dict(color='red')
+        )
+    
+        # Add the trace to the figure
+        fig.add_trace(pip_trace)
+    
+        # Update the layout
+        fig.update_layout(
+            width=1100,
+            xaxis={'gridcolor': 'black', 'gridwidth': 1, 'showgrid': True, 'title': {'text': 'Datee'}},
+            yaxis={'gridcolor': 'black', 'gridwidth': 1, 'showgrid': True, 'title': {'text': 'Values'}}
+        )
+    
+        return fig
+
+# Create separate figure objects for each subplot
+    fig1 = create_dual_axis_scatter_plot(df_final, "Title 1")
+    fig2 = pressure_chart(df_final2)
+    
+    # Combine the subplot figures into a single figure
+    fig = make_subplots(rows=2, cols=1, shared_xaxes=True, vertical_spacing=0.1)
+    
+    # Add traces to subplots
+    fig.add_trace(fig1.data[0], row=1, col=1)
+    fig.add_trace(fig1.data[1], row=1, col=1)
+    fig.add_trace(fig1.data[2], row=1, col=1)
+    fig.add_trace(fig2.data[0], row=2, col=1)
+    
+    # Update the layout for the second subplot
+    if not df_selection.empty:
+        fig.update_xaxes(showgrid=True, gridwidth=1, gridcolor='lightgray', row=2, col=1)
+        fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor='lightgray', row=2, col=1)
+    
+    # Update the layout for the first subplot (ensure secondary y-axis configuration is retained)
+        fig.update_layout(
+            height=800,  # Adjust the height as needed
+            width=1100,   # Adjust the width as needed
+            title_text=df_selection.iloc[0,1]
+        )
+        
+        # Plot the figure
+        st.plotly_chart(fig)
+    
     else:
         st.write('please select well_name')
         
