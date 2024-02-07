@@ -202,7 +202,7 @@ ORDER BY
 
 # Create separate figure objects for each subplot
     fig1 = create_dual_axis_scatter_plot(df_final, "Title 1")
-    fig2 = pressure_chart
+    fig2 = pressure_chart(df_final2)
     
     fig = make_subplots(rows=2, cols=1, shared_xaxes=True, vertical_spacing=0.1)
 
