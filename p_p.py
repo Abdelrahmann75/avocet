@@ -65,58 +65,6 @@ ORDER BY
         default=df['WellName'].head(1))
 
 
-    def update_running_graph(df1, df2):
-    # Create the first subplot with shared x-axis
-        fig = make_subplots(rows=2, cols=1, shared_xaxes=True, subplot_titles=("First Plot", "Second Plot"))
-    
-        # Trace for the first dataframe (df1)
-        trace1 = go.Scatter(x=df1['Datee'],
-                            y=df1['GrossTest'],
-                            name='Crude',
-                            mode='lines+markers',
-                            yaxis='y1',
-                            line=dict(color='black'))  # GrossTest with black color
-    
-        trace2 = go.Scatter(x=df1['Datee'],
-                            y=df1['WcTest'],
-                            name='Model',
-                            mode='lines+markers',
-                            yaxis='y2',
-                            line=dict(color='blue', dash='dot'))  # WcTest with blue color and dotted line style
-        
-        trace3 = go.Scatter(x=df1['Datee'],
-                            y=df1['net_oil'],
-                            name='net_oil',
-                            mode='lines+markers',
-                            yaxis='y1',
-                            line=dict(color='green'))  # net_oil with green color
-        
-        # Add traces to the first subplot
-        fig.add_trace(trace1, row=1, col=1)
-        fig.add_trace(trace2, row=1, col=1)
-        fig.add_trace(trace3, row=1, col=1)
-    
-        # Trace for the second dataframe (df2)
-        trace4 = go.Scatter(x=df2['Datee'],
-                            y=df2['PiP'],
-                            name='PiP',
-                            mode='lines+markers',
-                            yaxis='y1',
-                            line=dict(color='red'))  # PiP with red color
-        
-        # Add trace to the second subplot
-        fig.add_trace(trace4, row=2, col=1)
-        
-        # Update layout for the subplot
-        fig.update_layout(
-            title='Dual Axis Plot with Shared X-Axis',
-            xaxis=dict(title='Datee', showgrid=False),
-            legend=dict(x=0, y=1.1, orientation="h"),
-            width=1000,  # Adjust width as needed
-            height=600   # Adjust height as needed
-        )
-        
-        return fig
 
 
 
@@ -147,17 +95,81 @@ ORDER BY
     csv_data=merged_df.to_csv( index=False)
     st.download_button(label='export csv',data= csv_data,file_name='prod_test.csv',mime='text/csv')
         
+    def update_running_graph(df1, df2):
+        # Trace for the first dataframe (df1)
+        trace1 = go.Scatter(x=df1['Datee'],
+                            y=df1['GrossTest'],
+                            name='Crude',
+                            mode='lines+markers',
+                            yaxis='y1',
+                            line=dict(color='black'))  # GrossTest with black color
     
-                
+        trace2 = go.Scatter(x=df1['Datee'],
+                            y=df1['WcTest'],
+                            name='Model',
+                            mode='lines+markers',
+                            yaxis='y2',
+                            line=dict(color='blue', dash='dot'))  # WcTest with blue color and dotted line style
+        
+        trace3 = go.Scatter(x=df1['Datee'],
+                            y=df1['net_oil'],
+                            name='net_oil',
+                            mode='lines+markers',
+                            yaxis='y1',
+                            line=dict(color='green'))  # net_oil with green color
+        
+        # Define the data list with the traces for the first plot
+        data1 = [trace1, trace2, trace3]
+        
+        # Layout for the first plot
+        layout1 = go.Layout(
+            title='asdf',  # Title for the plot
+            yaxis=dict(title='Crude and Model', side='left', showgrid=False),
+            yaxis2=dict(title='Model Difference', overlaying='y', side='right', range=[0, 100]),  # Secondary axis for WcTest from 0 to 100
+            xaxis=dict(title='Datee', showgrid=False),
+            legend=dict(x=0, y=1.1, orientation="h"),
+            width=1200,  # Adjust width as needed
+            height=600   # Adjust height as needed
+        )
+        
+        # Create the figure for the first plot
+        fig1 = go.Figure(data=data1, layout=layout1)
+        
+        # Trace for the second dataframe (df2)
+        trace4 = go.Scatter(x=df2['Datee'],
+                            y=df2['PiP'],
+                            name='PiP',
+                            mode='lines+markers',
+                            yaxis='y1',
+                            line=dict(color='red'))  # PiP with red color
+        
+        # Define the data list with the trace for the second plot
+        data2 = [trace4]
+        
+        # Layout for the second plot
+        layout2 = go.Layout(
+            title='asdf',  # Title for the plot
+            yaxis=dict(title='PiP', side='left', showgrid=False),
+            xaxis=dict(title='Datee', showgrid=False),
+            width=1000,  # Adjust width as needed
+            height=600   # Adjust height as needed
+        )
+        
+        # Create the figure for the second plot
+        fig2 = go.Figure(data=data2, layout=layout2)
+        
+        return fig1, fig2
+        
+            
 # Define the two functions
-    fig = update_running_graph(df_final, df_final2)
+    fig1, fig2 = update_running_graph(df_final, df_final2)
 # Conditional updates for the second subplot based on data availability
     if not df_selection.empty:
         
 
 # Display the figures in Streamlit
-        st.plotly_chart(fig)
-        
+        st.plotly_chart(fig1)
+        st.plotly_chart(fig2)
         # Update x-axis grid for the second subplot
        
     else:
