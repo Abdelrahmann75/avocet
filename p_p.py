@@ -95,7 +95,7 @@ ORDER BY
     csv_data=merged_df.to_csv( index=False)
     st.download_button(label='export csv',data= csv_data,file_name='prod_test.csv',mime='text/csv')
         
-    def update_running_graph(df1, df2):
+   def update_running_graph(df1, df2):
         # Trace for the first dataframe (df1)
         trace1 = go.Scatter(x=df1['Datee'],
                             y=df1['GrossTest'],
@@ -123,10 +123,13 @@ ORDER BY
         
         # Layout for the first plot
         layout1 = go.Layout(
+            title='asdf',  # Title for the plot
             yaxis=dict(title='Crude and Model', side='left', showgrid=False),
-            yaxis2=dict(title='Model Difference', overlaying='y', side='right'),
+            yaxis2=dict(title='Model Difference', overlaying='y', side='right', range=[0, 100]),  # Secondary axis for WcTest from 0 to 100
             xaxis=dict(title='Datee', showgrid=False),
-            legend=dict(x=0, y=1.1, orientation="h")
+            legend=dict(x=0, y=1.1, orientation="h"),
+            width=1000,  # Adjust width as needed
+            height=600   # Adjust height as needed
         )
         
         # Create the figure for the first plot
@@ -145,16 +148,19 @@ ORDER BY
         
         # Layout for the second plot
         layout2 = go.Layout(
+            title='asdf',  # Title for the plot
             yaxis=dict(title='PiP', side='left', showgrid=False),
             xaxis=dict(title='Datee', showgrid=False),
+            width=1000,  # Adjust width as needed
+            height=600   # Adjust height as needed
         )
         
         # Create the figure for the second plot
         fig2 = go.Figure(data=data2, layout=layout2)
-    
-        return fig1, fig2
-    
         
+        return fig1, fig2
+        
+            
 # Define the two functions
     fig1, fig2 = update_running_graph(df_final, df_final2)
 # Conditional updates for the second subplot based on data availability
