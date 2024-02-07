@@ -154,7 +154,7 @@ ORDER BY
         fig.update_layout(layout1)
         
         return fig
-            
+                
 # Define the two functions
     fig = update_running_graph(df_final, df_final2)
 # Conditional updates for the second subplot based on data availability
