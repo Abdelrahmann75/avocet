@@ -169,33 +169,30 @@ ORDER BY
 # Create separate figure objects for each subplot
     fig1 = create_dual_axis_scatter_plot(df_final, "Title 1")
     fig2 = pressure_chart(df_final2)
-    
+
     # Combine the subplot figures into a single figure
     fig = make_subplots(rows=2, cols=1, shared_xaxes=True, vertical_spacing=0.1)
-    
-    # Add traces to subplots
+
+# Add traces to subplots
     fig.add_trace(fig1.data[0], row=1, col=1)
     fig.add_trace(fig1.data[1], row=1, col=1)
     fig.add_trace(fig1.data[2], row=1, col=1)
-    fig.add_trace(fig2.data[0], row=2, col=1)  # Add pressure chart trace to the second subplot
-    
+    fig.add_trace(fig2.data[0], row=2, col=1)
+
     # Update the layout
     fig.update_xaxes(showgrid=True, gridwidth=1, gridcolor='lightgray', row=1, col=1)
     fig.update_yaxes(showgrid=True, gridwidth=2, gridcolor='lightgray', row=1, col=1)
-    
-    # Assign WcTest trace to the secondary y-axis
-    fig.update_traces(yaxis='y2', row=1, col=1)  
-    
-    # Update the layout for the second subplot
+
+# Update the layout for the second subplot
     if not df_selection.empty:
         fig.update_xaxes(showgrid=True, gridwidth=1, gridcolor='lightgray', row=2, col=1)
         fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor='lightgray', row=1, col=1)
         fig.update_layout(
-            height=800,  # Adjust the height as needed
-            width=1100,   # Adjust the width as needed
-            title_text=df_selection.iloc[0, 1]
-        )
+        height=800,  # Adjust the height as needed
+        width=1100,   # Adjust the width as needed
+        title_text=df_selection.iloc[0,1])
         st.plotly_chart(fig)
+     
     else:
         st.write('please select well_name')
         
