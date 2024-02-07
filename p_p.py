@@ -95,151 +95,81 @@ ORDER BY
     csv_data=merged_df.to_csv( index=False)
     st.download_button(label='export csv',data= csv_data,file_name='prod_test.csv',mime='text/csv')
         
-   
+    def update_running_graph(df1, df2):
+        # Trace for the first dataframe (df1)
+        trace1 = go.Scatter(x=df1['Datee'],
+                            y=df1['GrossTest'],
+                            name='Crude',
+                            mode='lines+markers',
+                            yaxis='y1',
+                            line=dict(color='black'))  # GrossTest with black color
+    
+        trace2 = go.Scatter(x=df1['Datee'],
+                            y=df1['WcTest'],
+                            name='Model',
+                            mode='lines+markers',
+                            yaxis='y2',
+                            line=dict(color='blue', dash='dot'))  # WcTest with blue color and dotted line style
+        
+        trace3 = go.Scatter(x=df1['Datee'],
+                            y=df1['net_oil'],
+                            name='net_oil',
+                            mode='lines+markers',
+                            yaxis='y1',
+                            line=dict(color='green'))  # net_oil with green color
+        
+        # Define the data list with the traces for the first plot
+        data1 = [trace1, trace2, trace3]
+        
+        # Layout for the first plot
+        layout1 = go.Layout(
+            yaxis=dict(title='Crude and Model', side='left', showgrid=False),
+            yaxis2=dict(title='Model Difference', overlaying='y', side='right'),
+            xaxis=dict(title='Datee', showgrid=False),
+            legend=dict(x=0, y=1.1, orientation="h")
+        )
+        
+        # Create the figure for the first plot
+        fig1 = go.Figure(data=data1, layout=layout1)
+        
+        # Trace for the second dataframe (df2)
+        trace4 = go.Scatter(x=df2['Datee'],
+                            y=df2['PiP'],
+                            name='PiP',
+                            mode='lines+markers',
+                            yaxis='y1',
+                            line=dict(color='red'))  # PiP with red color
+        
+        # Define the data list with the trace for the second plot
+        data2 = [trace4]
+        
+        # Layout for the second plot
+        layout2 = go.Layout(
+            yaxis=dict(title='PiP', side='left', showgrid=False),
+            xaxis=dict(title='Datee', showgrid=False),
+        )
+        
+        # Create the figure for the second plot
+        fig2 = go.Figure(data=data2, layout=layout2)
+    
+    return fig1, fig2
+    
+        # Create the figure for the second plot
+        fig2 = go.Figure(data=data2, layout=layout2)
+    
+        return fig1, fig2
 
 # Define the two functions
-    def create_dual_axis_scatter_plot(df, title):
-        """
-        Creates a dual-axis scatter plot with the following features:
-    
-        - Overlays 'GrossTest' and 'net_oil' lines on the primary y-axis.
-        - Displays 'WcTest' on a separate secondary y-axis positioned on the right.
-        - Shares the x-axis for all subplots.
-        - Provides flexibility for customization through parameters.
-    
-        Args:
-            df (pandas.DataFrame): The input DataFrame containing the data.
-            title (str): The title for the plot.
-    
-        Returns:
-            plotly.graph_objects.Figure: The generated dual-axis scatter plot.
-        """
-    
-        fig = go.Figure()
-        df['Datee'] = pd.to_datetime(df['Datee'])
-    
-        # Create traces for gross test, net oil, and water produced
-        gross_test_trace = go.Scatter(
-            x=df['Datee'],
-            y=df['GrossTest'],
-            mode='lines+markers',
-            name='GrossTest',
-            line=dict(color='black')
-        )
-        net_oil_trace = go.Scatter(
-            x=df['Datee'],
-            y=df['net_oil'],
-            mode='lines+markers',
-            name='net_oil',
-            line=dict(color='green')
-        )
-        water_produced_trace = go.Scatter(
-            x=df['Datee'],
-            y=df['WcTest'],
-            mode='lines+markers',
-            name='WC',
-            line=dict(color='blue'),
-            yaxis='y2'  # Assign to secondary y-axis
-        )
-    
-        # Add traces to the figure
-        fig.add_traces([gross_test_trace, net_oil_trace, water_produced_trace])
-    
-        # Update the layout with detailed customizations
-        fig.update_layout(
-            title={'text': title, 'x': 0.4},
-            width=1100,  # Adjust width as needed
-            xaxis={'gridcolor': 'black', 'gridwidth': 1, 'showgrid': True, 'title': {'text': 'Datee'}},
-            yaxis={'gridcolor': 'black', 'gridwidth': 1, 'showgrid': True, 'title': {'text': 'GrossTest & net_oil'}},
-            yaxis2={
-                'gridcolor': 'black',
-                'gridwidth': 1,
-                'showgrid': True,
-                'title': {'text': 'WaterProduced'},
-                'overlaying': 'y',
-                'side': 'right',
-                'range': [0, 100],  # Adjust range as needed
-            },
-            # Add more layout customizations here, e.g., margins, annotations, etc.
-        )
-
-        return fig
-
-    def pressure_chart(df):
-        """
-        Creates a scatter plot for the pump intake pressure.
-    
-        Args:
-            df (pandas.DataFrame): The input DataFrame containing the data.
-    
-        Returns:
-            plotly.graph_objects.Figure: The generated pressure chart.
-        """
-    
-        fig = go.Figure()
-        df['Datee'] = pd.to_datetime(df['Datee'])
-    
-        # Create a trace for pump intake pressure
-        pip_trace = go.Scatter(
-            x=df['Datee'],
-            y=df['PiP'],
-            mode='lines+markers',
-            name='Pump_intake',
-            line=dict(color='red')
-        )
-    
-        # Add the trace to the figure
-        fig.add_trace(pip_trace)
-    
-        # Update the layout
-        fig.update_layout(
-            width=1100,  # Adjust width as needed
-            xaxis={'gridcolor': 'black', 'gridwidth': 1, 'showgrid': True, 'title': {'text': 'Datee'}},
-            yaxis={'gridcolor': 'black', 'gridwidth': 1, 'showgrid': True, 'title': {'text': 'Values'}}
-        )
-    
-        return fig
-
-# Create separate figure objects for each subplot
-    fig1 = create_dual_axis_scatter_plot(df_final, "Title 1")
-    fig2 = pressure_chart(df_final2)
-    
-    fig = make_subplots(rows=2, cols=1, shared_xaxes=True, vertical_spacing=0.1)
-
-# Add traces to subplots
-# - fig1.data[0]: GrossTest trace from subplots 1
-# - fig1.data[1]: net_oil trace from subplots 1
-# - fig1.data[2]: WcTest trace from subplots 1 (manually added)
-# - fig2.data[0]: Pump intake pressure trace from subplots 2
-
-    fig.add_trace(fig1.data[0], row=1, col=1)
-    fig.add_trace(fig1.data[1], row=1, col=1)
-    fig.add_trace(fig1.data[2], row=1, col=1)  # WcTest on secondary y-axis
-    fig.add_trace(fig2.data[0], row=2, col=1)
-    
-    # Update layout for shared x-axis grid
-    fig.update_xaxes(showgrid=True, gridwidth=1, gridcolor='lightgray', row=1, col=1)
-    
-    # Update layout for y-axes in the first subplot
-    fig.update_yaxes(showgrid=True, gridwidth=2, gridcolor='lightgray', row=1, col=1)
-
+    fig1, fig2 = update_running_graph(df_final, df_final2)
 # Conditional updates for the second subplot based on data availability
     if not df_selection.empty:
+        
+
+# Display the figures in Streamlit
+        st.plotly_chart(fig1)
+        st.plotly_chart(fig2)
         # Update x-axis grid for the second subplot
-        fig.update_xaxes(showgrid=True, gridwidth=1, gridcolor='lightgray', row=2, col=1)
-        
-        # Update y-axis grid for both subplots
-        fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor='lightgray', row=1, col=1)
-        
-        # Set figure title and dimensions
-        fig.update_layout(
-            height=800,
-            width=1100,
-            title_text=df_selection.iloc[0, 1]
-        )
-        
-        # Display the figure using streamlit
-        st.plotly_chart(fig)
+       
     else:
         # Handle the case where data is not selected
         st.write('Please select well_name')
