@@ -96,7 +96,7 @@ ORDER BY
     st.download_button(label='export csv',data= csv_data,file_name='prod_test.csv',mime='text/csv')
     
     def update_running_graph(df1, df2):
-        # Create the first subplot with shared x-axis
+    # Create the first subplot with shared x-axis
         fig = make_subplots(rows=2, cols=1, shared_xaxes=True)
     
         # Trace for the first dataframe (df1)
@@ -113,14 +113,14 @@ ORDER BY
                             mode='lines+markers',
                             yaxis='y2',
                             line=dict(color='blue', dash='dot'))  # WcTest with blue color and dotted line style
-    
+        
         trace3 = go.Scatter(x=df1['Datee'],
                             y=df1['net_oil'],
                             name='net_oil',
                             mode='lines+markers',
                             yaxis='y1',
                             line=dict(color='green'))  # net_oil with green color
-    
+        
         # Add traces to the first subplot
         fig.add_trace(trace1, row=1, col=1)
         fig.add_trace(trace2, row=1, col=1)
@@ -133,27 +133,21 @@ ORDER BY
                             mode='lines+markers',
                             yaxis='y1',
                             line=dict(color='red'))  # PiP with red color
-    
+        
         # Add trace to the second subplot
         fig.add_trace(trace4, row=2, col=1)
-    
-        # Get the minimum and maximum values of WcTest
-        min_wc_test = df1['WcTest'].min()
-        max_wc_test = df1['WcTest'].max()
-    
+        
         # Update layout for the subplot
         fig.update_layout(
             title='Dual Axis Plot with Shared X-Axis',
             xaxis=dict(title='Datee', showgrid=False),
-            yaxis2=dict(title='WcTest', overlaying='y', side='right', range=[min_wc_test, max_wc_test]),
             legend=dict(x=0, y=1.1, orientation="h"),
             width=1000,  # Adjust width as needed
             height=600   # Adjust height as needed
         )
-    
+        
         return fig
     
-        
     
       
 # Define the two functions
