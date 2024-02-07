@@ -113,11 +113,10 @@ ORDER BY
             legend=dict(x=0, y=1.1, orientation="h"),
             width=1000,  # Adjust width as needed
             height=600,   # Adjust height as needed
-            yaxis2=dict(title='WC', overlaying='y', side='right')  # Add yaxis2 directly in update_layout
+            yaxis2=dict(title='WC', overlaying='y', side='right', row=1, col=1)  # Specify row and col for yaxis2
         )
         
         return fig
-
 
 
 
