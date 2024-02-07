@@ -64,37 +64,6 @@ ORDER BY
         'Selec well name',options=df['WellName'].unique(),
         default=df['WellName'].head(1))
 
-
-
-
-
-    df_layer = df[df['WellName'].isin(well_name)]
-    if not df_layer.empty:
-        title = df_layer['WellName'].iloc[0]
-    else:
-        title = 'nth to show'    
-    layer = st.sidebar.multiselect(
-        'Selec layer',options=df['Layer'].unique(),
-        default=df_layer['Layer'].unique())
-
-    df_selection = df[df['WellName'].isin(well_name) & df['Layer'].isin(layer)]
-
-    df_final = df_selection.groupby('Datee').agg({'GrossTest':'sum','net_oil':'sum','WcTest':'sum'}).reset_index()
-
-    df_selection2 = df1[df1['WellName'].isin(well_name) & df1['Layer'].isin(layer)]
-
-    df_final2 = df_selection2.groupby('Datee')["PiP"].sum().reset_index()
-    
-  
-    merged_df = pd.concat([df_final, df_final2], axis=1)
-
-   # Export the merged DataFrame to a CSV file
-
-    
-
-    csv_data=merged_df.to_csv( index=False)
-    st.download_button(label='export csv',data= csv_data,file_name='prod_test.csv',mime='text/csv')
-    
     def update_running_graph(df1, df2):
     # Create the first subplot with shared x-axis
         fig = make_subplots(rows=2, cols=1, shared_xaxes=True)
@@ -137,20 +106,49 @@ ORDER BY
         # Add trace to the second subplot
         fig.add_trace(trace4, row=2, col=1)
         
-        # Add secondary y-axis to the entire plot
-        fig.update_layout(yaxis2=dict(title='WC', overlaying='y', side='right', row=1, col=1))
-        
         # Update layout for the subplot
         fig.update_layout(
             title='Dual Axis Plot with Shared X-Axis',
             xaxis=dict(title='Datee', showgrid=False),
             legend=dict(x=0, y=1.1, orientation="h"),
             width=1000,  # Adjust width as needed
-            height=600   # Adjust height as needed
+            height=600,   # Adjust height as needed
+            yaxis2=dict(title='WC', overlaying='y', side='right')  # Add yaxis2 directly in update_layout
         )
         
         return fig
-        
+
+
+
+
+    df_layer = df[df['WellName'].isin(well_name)]
+    if not df_layer.empty:
+        title = df_layer['WellName'].iloc[0]
+    else:
+        title = 'nth to show'    
+    layer = st.sidebar.multiselect(
+        'Selec layer',options=df['Layer'].unique(),
+        default=df_layer['Layer'].unique())
+
+    df_selection = df[df['WellName'].isin(well_name) & df['Layer'].isin(layer)]
+
+    df_final = df_selection.groupby('Datee').agg({'GrossTest':'sum','net_oil':'sum','WcTest':'sum'}).reset_index()
+
+    df_selection2 = df1[df1['WellName'].isin(well_name) & df1['Layer'].isin(layer)]
+
+    df_final2 = df_selection2.groupby('Datee')["PiP"].sum().reset_index()
+    
+  
+    merged_df = pd.concat([df_final, df_final2], axis=1)
+
+   # Export the merged DataFrame to a CSV file
+
+    
+
+    csv_data=merged_df.to_csv( index=False)
+    st.download_button(label='export csv',data= csv_data,file_name='prod_test.csv',mime='text/csv')
+    
+    
     
       
 # Define the two functions
