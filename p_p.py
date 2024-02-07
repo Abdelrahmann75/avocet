@@ -95,7 +95,7 @@ ORDER BY
     csv_data=merged_df.to_csv( index=False)
     st.download_button(label='export csv',data= csv_data,file_name='prod_test.csv',mime='text/csv')
     
-   def update_running_graph(df1, df2):
+    def update_running_graph(df1, df2):
         # Create the first subplot with shared x-axis
         fig = make_subplots(rows=2, cols=1, shared_xaxes=True)
     
