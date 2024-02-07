@@ -95,21 +95,22 @@ ORDER BY
     csv_data=merged_df.to_csv( index=False)
     st.download_button(label='export csv',data= csv_data,file_name='prod_test.csv',mime='text/csv')
     
+ 
     def update_running_graph(df1, df2):
     # Create the first subplot with shared x-axis
         fig = make_subplots(rows=2, cols=1, shared_xaxes=True)
-    
+        
         # Trace for the first dataframe (df1)
         trace1 = go.Scatter(x=df1['Datee'],
                             y=df1['GrossTest'],
-                            name='gross_test',
+                            name='Gross Test',
                             mode='lines+markers',
                             yaxis='y1',
                             line=dict(color='black'))  # GrossTest with black color
     
         trace2 = go.Scatter(x=df1['Datee'],
                             y=df1['WcTest'],
-                            name='WC',
+                            name='WcTest',
                             mode='lines+markers',
                             yaxis='y2',
                             line=dict(color='blue', dash='dot'))  # WcTest with blue color and dotted line style
@@ -136,21 +137,18 @@ ORDER BY
     
         # Add trace to the second subplot
         fig.add_trace(trace4, row=2, col=1)
-    
-        # Get the minimum and maximum values of WcTest
-        min_wc_test = df1['WcTest'].min()
-        max_wc_test = df1['WcTest'].max()
-    
+        
         # Update layout for the subplot
         fig.update_layout(
             title='Dual Axis Plot with Shared X-Axis',
             xaxis=dict(title='Datee', showgrid=False),
-            yaxis2=dict(title='WcTest', overlaying='y', side='right', range=[min_wc_test, max_wc_test]),
+            yaxis=dict(title='Primary Y-Axis', side='left', showgrid=False),
+            yaxis2=dict(title='Secondary Y-Axis', overlaying='y', side='right', showgrid=False),
             legend=dict(x=0, y=1.1, orientation="h"),
             width=1000,  # Adjust width as needed
             height=600   # Adjust height as needed
         )
-    
+        
         return fig
 
     
