@@ -129,7 +129,7 @@ ORDER BY
             xaxis=dict(title='Datee', showgrid=False),
             legend=dict(x=0, y=1.1, orientation="h"),
             width=1000,  # Adjust width as needed
-            height=600   # Adjust height as needed
+            height=800   # Adjust height as needed
         )
         
         # Create the figure for the first plot
