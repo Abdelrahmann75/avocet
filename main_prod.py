@@ -46,13 +46,13 @@ def main():
     # If login is successful, display the app content
     if st.session_state.login_successful:
         # Display the app content
-        st.sidebar.markdown('<span style="font-size:20px; font-weight:bold;">Avocet-DashBoard</span>', unsafe_allow_html=True)
+        st.sidebar.markdown('<span style="font-size:20px; font-weight:bold;">-DashBoard</span>', unsafe_allow_html=True)
         # Set the default selection to "Prod_pressure"
-        choice = st.sidebar.radio("", ["Home", "Prod_pressure","RTA"])
+        choice = st.sidebar.radio("", ["Home", "Prod_pressure","Flowing MB"])
 
         if choice == "Home":
             my_home()
-        elif choice =='RTA':
+        elif choice =='Flowing MB':
             rate_trans()
         else:
             test()
