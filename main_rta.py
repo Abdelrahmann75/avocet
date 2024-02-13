@@ -194,10 +194,7 @@ ORDER By Date'''
         tab1,tab2 = st.tabs(["actual_data",'no_outliers'])
       
         
-        
-        
-        
-        
+      
         
       
 
@@ -281,24 +278,13 @@ ORDER By Date'''
                 st.plotly_chart(fig)
                 st.markdown(f"<h4>OOIP is: {N} bbls</h4>", unsafe_allow_html=True)
                 st.markdown(f"<h4>Productivity index is: {j}</h4>", unsafe_allow_html=True)
-       
-        
-        
       
-        
-       
-    
-        
-             
-              
-               
                               
           
           
           
-       
     except Exception as e:
-      st.error('please provide a WellName',e)
+        st.error('An error occurred. Please provide a WellName.')
    
     
     
