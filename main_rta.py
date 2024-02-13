@@ -284,7 +284,7 @@ ORDER By Date'''
           
           
     except Exception as e:
-        st.error('An error occurred. Please provide a WellName.')
+        st.error('Please provide a WellName.')
    
     
     
