@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rinse N' Roll</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="hero-container">
+    <header>
+      <img src="logo.png" alt="Rinse N Roll Logo" class="logo">
+    </header>
+
+    <div class="main-content">
+      <div class="left-section">
+        <h1 class="main-heading">MOBILE CAR WASH<br>& AUTO DETAILING</h1>
+        <ul class="features">
+          <li>Professional SUV & Sedan Services</li>
+          <li>Available 24/7 for Your Convenience</li>
+          <li>Premium Detailing Packages</li>
+          <li>Fully Mobile - We Come to You</li>
+          <li>Eco-Friendly Products Used</li>
+          <li>Licensed & Insured Professionals</li>
+        </ul>
+      </div>
+
+      <div class="right-section">
+        <h2 class="form-title">Reserve Your Service</h2>
+        <form class="reservation-form" id="reserveForm">
+          <div class="form-group">
+            <label for="fullName">Full Name *</label>
+            <input type="text" id="fullName" name="fullName" required />
+          </div>
+
+          <div class="form-group">
+            <label for="phoneNumber">Phone Number *</label>
+            <input type="tel" id="phoneNumber" name="phoneNumber" required />
+          </div>
+
+          <div class="form-group">
+            <label for="serviceDate">Preferred Date & Time *</label>
+            <input type="datetime-local" id="serviceDate" name="serviceDate" required />
+          </div>
+
+          <div class="form-group">
+            <label for="serviceType">Service Type *</label>
+            <select id="serviceType" name="serviceType" required>
+              <option value="">Choose Your Service</option>
+              <option value="exterior">Exterior Wash & Wax</option>
+              <option value="full">Full Service Detail</option>
+              <option value="premium">Premium Complete Package</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="vehicleType">Vehicle Type</label>
+            <select id="vehicleType" name="vehicleType">
+              <option value="">Select Vehicle Type</option>
+              <option value="sedan">Sedan</option>
+              <option value="suv">SUV/Truck</option>
+              <option value="compact">Compact Car</option>
+              <option value="luxury">Luxury Vehicle</option>
+            </select>
+          </div>
+
+          <button type="submit" class="submit-btn">Confirm Reservation</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('reserveForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Get form data
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData);
+      
+      // Simple validation
+      if (!data.fullName || !data.phoneNumber || !data.serviceDate || !data.serviceType) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+      
+      // Success message
+      alert('Thank you! Your reservation has been submitted. We will contact you shortly to confirm your appointment.');
+      
+      // Reset form
+      this.reset();
+    });
+
+    // Set minimum date to today
+    const dateInput = document.getElementById('serviceDate');
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    dateInput.min = now.toISOString().slice(0, 16);
+  </script>
+</body>
+</html>
